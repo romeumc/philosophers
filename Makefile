@@ -6,14 +6,14 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/22 00:03:25 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/22 15:03:00 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-CC = clang
-CFLAGS = -Wall -Wextra -Werror -g
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 OBJ_DIR = obj
 SRC_DIR = src
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -77,11 +77,13 @@ run: all
 
 runv: all
 	@echo $(ANSI_B_RED) "Valgrind RESULT" $(ANSI_RESET)
-	#valgrind -q --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME)
+	# valgrind -q --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
+	# valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME)
+	# valgrind --leak-check=full -s ./$(NAME) 2 5 8 6
+	valgrind ./$(NAME) 2 5 8 6
 
 NAME_S = $(NAME)_sanitize
 runs: all
 	@echo $(ANSI_B_RED) "Running with sanitize" $(ANSI_RESET)
 	gcc $(CFLAGS) -fsanitize=address $(OBJ) $(OBJ_COMMON) $(LIBFT) -o $(NAME_S)
-	./$(NAME_S)
+	./$(NAME_S) 2 5 8 6

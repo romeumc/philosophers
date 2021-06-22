@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:30:42 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/22 00:38:06 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/22 15:29:52 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,32 @@ void	load_data(int argc, char **argv, t_philo *philo)
 		philo->times_to_eat = -1;
 }
 
+void *routine()
+{
+	printf("test from thread\n");
+	sleep(2);
+	printf("teste\n");
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_philo	philo;
+	pthread_t	t1;
+	pthread_t	t2;
 
+	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
+		return (0);
+	if (pthread_create(&t2, NULL, &routine, NULL) != 0)
+		return (0);
+	if (pthread_join(t1, NULL) != 0)
+		return (1);
+	if (pthread_join(t2, NULL) != 0)
+		return (1);
+	
 	if (validate_args(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	load_data(argc, argv, &philo);
 	printf(ANSI_B_BCYAN " ok " ANSI_RESET);
+	return (0);
 }

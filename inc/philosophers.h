@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:31:41 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/22 00:36:30 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/22 11:18:49 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define TRUE 0
 
 # include <stdio.h>
+# include <pthread.h>
 # include "ft_ansi.h"
 # include "utils.h"
 
