@@ -6,7 +6,7 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/22 15:03:00 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/24 00:41:18 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ HEADER = ft_ansi.h \
 
 SRC = main.c \
 	print_error_message.c \
+	validate_arguments.c \
+	routine.c \
+	create_destroy_philosophers.c \
 	utils/ft_atoi.c \
 	utils/ft_atol.c \
 	utils/ft_isdigit.c \
@@ -71,19 +74,21 @@ norm:
 	@norminette $(addprefix inc/,$(HEADER)) \
 		$(addprefix src/,$(SRC))
 
+TEST_PARAMETERS = 10 5 5 5
+
 run: all
 	@echo $(ANSI_B_RED) "Running for debbuger without sanitize" $(ANSI_RESET)
-	./$(NAME) 2 5 8 6
+	./$(NAME) $(TEST_PARAMETERS)
 
 runv: all
 	@echo $(ANSI_B_RED) "Valgrind RESULT" $(ANSI_RESET)
 	# valgrind -q --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
 	# valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME)
-	# valgrind --leak-check=full -s ./$(NAME) 2 5 8 6
-	valgrind ./$(NAME) 2 5 8 6
+	# valgrind --leak-check=full -s ./$(NAME) 50 5 8 6
+	valgrind ./$(NAME) $(TEST_PARAMETERS)
 
 NAME_S = $(NAME)_sanitize
 runs: all
 	@echo $(ANSI_B_RED) "Running with sanitize" $(ANSI_RESET)
 	gcc $(CFLAGS) -fsanitize=address $(OBJ) $(OBJ_COMMON) $(LIBFT) -o $(NAME_S)
-	./$(NAME_S) 2 5 8 6
+	./$(NAME_S) $(TEST_PARAMETERS)
