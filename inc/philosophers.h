@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:31:41 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/24 01:13:45 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/24 13:18:44 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	load_args_info(int argc, char **argv, t_philo_args *philo_info);
 
 int		create_mutexes(t_philo_args *info);
 int		malloc_threads(t_philo_args *philo_args);
-int		create_philosophers(t_philosopher *philo, t_philo_args *philo_args);
+int		create_philosophers(t_philo_args *philo_args);
 int		destroy_philosophers(t_philo_args *philo_args);
 int		destroy_mutexes(t_philo_args *philo_args);
 void	*routine(void *arg);

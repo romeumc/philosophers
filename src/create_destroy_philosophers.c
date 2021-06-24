@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:46:08 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/24 01:15:17 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/24 13:31:08 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,25 @@ int	destroy_mutexes(t_philo_args *philo_args)
 	return (EXIT_SUCCESS);
 }
 
-int	create_philosophers(t_philosopher *philo, t_philo_args *philo_args)
+int	create_philosophers(t_philo_args *philo_args)
 {
 	int	i;
+	t_philosopher	*philo;
 
 	i = 0;
 	while (i < philo_args->num_philos)
 	{
-		philo->info = philo_args;
-		philo->number = i;
-		philo->times_eaten = 0;
-		if (philo_args->thread == NULL)
+		philo = malloc(sizeof(t_philosopher));
+		if (philo == NULL)
 		{
-			print_error("ERROR: ", "Cannot allocate threads");
+			print_error("ERROR", "Cannot allocate philosophers");
 			return (EXIT_FAILURE);
 		}
-		if (pthread_create(&philo->info->thread[i], NULL, &routine, philo) != 0)
+		philo->index = i;
+		philo->info = philo_args;
+		if (pthread_create(&philo_args->thread[i], NULL, &routine, (void *)philo) != 0)
 		{
-			print_error("ERROR: ", "Cannot create thread");
+			print_error ("ERROR: ", "Cannot create thread");
 			return (EXIT_FAILURE);
 		}
 		i++;
