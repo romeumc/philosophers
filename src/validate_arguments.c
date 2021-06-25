@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:56:53 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/23 18:03:20 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/25 13:58:21 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	validate_args(int argc, char **argv)
 void	load_args_info(int argc, char **argv, t_philo_args *philo_info)
 {
 	philo_info->num_philos = ft_atoi(argv[1]);
-	philo_info->time_die = ft_atoi(argv[2]);
-	philo_info->time_eat = ft_atoi(argv[3]);
-	philo_info->time_sleep = ft_atoi(argv[4]);
+	philo_info->time_die = ft_atoi(argv[2]) * 1000;
+	philo_info->time_eat = ft_atoi(argv[3]) * 1000;
+	philo_info->time_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
 		philo_info->times_to_eat = ft_atoi(argv[5]);
 	else

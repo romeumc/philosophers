@@ -6,7 +6,7 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/24 15:18:17 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/25 17:58:44 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC = main.c \
 	utils/ft_isnumber.c \
 	utils/ft_strlen.c \
 	utils/ft_putchar.c \
-	utils/ft_putstr.c
+	utils/ft_putstr.c \
+	utils/ft_strcmp.c
 
 all: $(NAME)
 
@@ -74,7 +75,7 @@ norm:
 	@norminette $(addprefix inc/,$(HEADER)) \
 		$(addprefix src/,$(SRC))
 
-TEST_PARAMETERS = 10 5 5 5
+TEST_PARAMETERS = 5 5 5 5 5
 
 run: all
 	@echo $(ANSI_B_RED) "Running for debbuger without sanitize" $(ANSI_RESET)
