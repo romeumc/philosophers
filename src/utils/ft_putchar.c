@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 23:18:52 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/22 00:03:59 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/27 20:36:01 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	ft_putchar(int c)
 {
-	write(1, &c, 1);
-	return (1);
+	//write(1, &c, 1);
+	return (write(1, &c, 1));
 }

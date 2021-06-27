@@ -6,14 +6,14 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/27 15:41:00 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/27 21:33:21 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -pthread
+CFLAGS = -Wall -Wextra -Werror -g -pthread -O3
 OBJ_DIR = obj
 SRC_DIR = src
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -83,6 +83,11 @@ TEST_PARAMETERS = 4 310 200 100
 run: all
 	@echo $(ANSI_B_RED) "Running for debbuger without sanitize" $(ANSI_RESET)
 	./$(NAME) $(TEST_PARAMETERS)
+
+run1: all
+	./$(NAME) 5 800 200 200 7
+run2: all
+	./$(NAME) 4 410 200 200 10
 
 runv: all
 	@echo $(ANSI_B_RED) "Valgrind RESULT" $(ANSI_RESET)
