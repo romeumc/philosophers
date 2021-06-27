@@ -6,7 +6,7 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/27 21:33:21 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/27 22:57:02 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,17 @@ OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 HEADER = ft_ansi.h \
 	philosophers.h \
-	utils.h
+	utils.h \
 
 SRC = main.c \
 	print_error_message.c \
 	validate_arguments.c \
 	routine.c \
+	routine_single.c \
 	create_destroy_philosophers.c \
 	time.c \
 	print_action.c \
+	philo_actions.c \
 	\
 	utils/ft_atoi.c \
 	utils/ft_atol.c \
@@ -88,6 +90,8 @@ run1: all
 	./$(NAME) 5 800 200 200 7
 run2: all
 	./$(NAME) 4 410 200 200 10
+run3: all
+	./$(NAME) 1 800 200 200
 
 runv: all
 	@echo $(ANSI_B_RED) "Valgrind RESULT" $(ANSI_RESET)

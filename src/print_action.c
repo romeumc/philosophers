@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:44:43 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 21:41:23 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/27 21:49:36 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_philo_color_byindex(int philo_index)
 	return (color);
 }
 
-void	print_philo_action(char *action,
+void	print_action(char *action,
 	t_philosopher *philo, int index, char *color)
 {
 	int		time;

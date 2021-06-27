@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:31:41 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 18:31:33 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/27 22:56:01 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@
 # define TRUE 0
 
 # include <stdio.h>
-# include <pthread.h>
 # include <string.h>
 # include <sys/time.h>
+# include <pthread.h>
 # include "ft_ansi.h"
 # include "utils.h"
-
-# define FORK "has taken a fork"
-# define EAT "is eating"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define DEATH "died"
 
 typedef struct s_philo_args
 {
@@ -52,6 +46,12 @@ typedef struct s_philosopher
 	int				times_eaten;
 }	t_philosopher;
 
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DEATH "died"
+
 void	print_error(char *header, char *error);
 void	print_message(char *header, char *message);
 int		validate_args(int argc, char **argv);
@@ -61,13 +61,22 @@ int		init_extra_info(t_philo_args *philo_info);
 int		create_mutexes(t_philo_args *info);
 int		malloc_threads(t_philo_args *philo_args);
 int		create_philosophers(t_philo_args *philo_args);
+int		create_single_philosopher(t_philo_args *philo_args);
 int		destroy_philosophers(t_philo_args *philo_args);
 int		destroy_mutexes(t_philo_args *philo_args);
 void	*routine(void *arg);
+void	print_action(char *act, t_philosopher *philo, int index, char *color);
+void	wait_time(t_philosopher *philo, int time_towait);
+void	check_death(t_philosopher *philo);
+
+void	take_forks(t_philosopher *philo, int left, int right);
+void	philo_eat(t_philosopher *philo, int index);
+void	leave_forks(t_philosopher *philo, int left, int right);
+void	philo_sleep(t_philosopher *philo, int index);
+void	philo_think(t_philosopher *philo, int index);
+
 long long	get_time_stamp_action(t_philosopher *philo);
 long long	get_elapsed_time(t_philosopher *philo);
 long long	get_elapsed_time_from_meal(t_philosopher *philo);
-void	print_philo_action(char *action,
-	t_philosopher *philo, int index, char *color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:30:42 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 00:35:19 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/27 22:56:18 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 int	main(int argc, char **argv)
 {
 	t_philo_args	philo_args;
-
-	// while (1)
-	// {
-	// 	gettimeofday(&curr_time, NULL);
-	// 	//printf("time:%d\n", (curr_time.tv_usec - philo_args.start_time.tv_usec));
-	// 	printf("seconds : %ld\nmicro seconds : %d", curr_time.tv_sec, curr_time.tv_usec);
-	// }
 
 	if (validate_args(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
@@ -33,7 +26,9 @@ int	main(int argc, char **argv)
 	if (malloc_threads(&philo_args) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	gettimeofday(&philo_args.start_time, NULL);
-	if (create_philosophers(&philo_args))
+	if (philo_args.num_philos == 1)
+		create_single_philosopher(&philo_args);
+	else if (create_philosophers(&philo_args))
 		return (EXIT_FAILURE);
 	if (destroy_philosophers(&philo_args) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
