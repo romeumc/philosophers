@@ -10,3 +10,4 @@
 # Executables
 *.out
 /philo
+/philo_sanitize
