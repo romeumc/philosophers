@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:46:08 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/25 16:23:36 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/26 22:13:22 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,12 @@ int	malloc_threads(t_philo_args *philo_args)
 int	destroy_mutexes(t_philo_args *philo_args)
 {
 	int	i;
-	int ret;
 
 	i = 0;
 	while (i < philo_args->num_philos)
 	{
-
-		if ((ret = pthread_mutex_destroy(&philo_args->mutex[i])) != 0)
+		if (pthread_mutex_destroy(&philo_args->mutex[i]) != 0)
 		{
-			printf("%d\n", ret);
 			print_error("ERROR: ", "Falied to destroy mutex");
 			free(philo_args->mutex);
 			return (EXIT_FAILURE);
@@ -86,6 +83,7 @@ int	create_philosophers(t_philo_args *philo_args)
 		philo->index = i;
 		philo->times_eaten = 0;
 		philo->last_action = philo_args->start_time;
+		philo->last_meal = philo_args->start_time;
 		philo->info = philo_args;
 		if (pthread_create(&philo_args->thread[i], NULL, &routine, philo) != 0)
 		{

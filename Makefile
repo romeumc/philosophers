@@ -6,7 +6,7 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/25 17:58:44 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/26 22:27:33 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,9 @@ SRC = main.c \
 	validate_arguments.c \
 	routine.c \
 	create_destroy_philosophers.c \
+	time.c \
+	print_action.c \
+	\
 	utils/ft_atoi.c \
 	utils/ft_atol.c \
 	utils/ft_isdigit.c \
@@ -75,7 +78,7 @@ norm:
 	@norminette $(addprefix inc/,$(HEADER)) \
 		$(addprefix src/,$(SRC))
 
-TEST_PARAMETERS = 5 5 5 5 5
+TEST_PARAMETERS = 2 200 100 100 2
 
 run: all
 	@echo $(ANSI_B_RED) "Running for debbuger without sanitize" $(ANSI_RESET)
@@ -83,9 +86,9 @@ run: all
 
 runv: all
 	@echo $(ANSI_B_RED) "Valgrind RESULT" $(ANSI_RESET)
-	# valgrind -q --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
-	# valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME)
-	# valgrind --leak-check=full -s ./$(NAME) 50 5 8 6
+	# valgrind -q --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) $(TEST_PARAMETERS)
+	# valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) $(TEST_PARAMETERS)
+	# valgrind --leak-check=full -s ./$(NAME) $(TEST_PARAMETERS)
 	valgrind ./$(NAME) $(TEST_PARAMETERS)
 
 NAME_S = $(NAME)_sanitize
