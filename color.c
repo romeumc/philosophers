@@ -42,23 +42,23 @@ char	*color;
 		
 
 
-void	take_forks(t_philosopher *philo, int index, int num_philo)
-{
-	if (index % 2 == 0)
-	{
-		pthread_mutex_lock(&philo->info->mutex[index % num_philo]);
-		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
-		pthread_mutex_lock(&philo->info->mutex[(index + 1) % num_philo]);
-		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->info->mutex[(index + 1) % num_philo]);
-		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
-		pthread_mutex_lock(&philo->info->mutex[index % num_philo]);
-		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
-	}
-}
+// void	take_forks(t_philosopher *philo, int index, int num_philo)
+// {
+// 	if (index % 2 == 0)
+// 	{
+// 		pthread_mutex_lock(&philo->info->mutex[index % num_philo]);
+// 		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
+// 		pthread_mutex_lock(&philo->info->mutex[(index + 1) % num_philo]);
+// 		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
+// 	}
+// 	else
+// 	{
+// 		pthread_mutex_lock(&philo->info->mutex[(index + 1) % num_philo]);
+// 		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
+// 		pthread_mutex_lock(&philo->info->mutex[index % num_philo]);
+// 		print_philo_action(FORK, philo, index, ANSI_F_WHITE);
+// 	}
+// }
 
 
 

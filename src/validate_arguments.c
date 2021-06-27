@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:56:53 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 00:34:59 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/27 18:07:34 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	init_extra_info(t_philo_args *philo_info)
 	}
 	while (i < philo_info->num_philos)
 	{
-		philo_info->forks[i] = 0;
+		philo_info->forks[i] = -1;
 		i++;
 	}
 	return (EXIT_SUCCESS);

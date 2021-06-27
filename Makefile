@@ -6,7 +6,7 @@
 #    By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 16:35:42 by rmartins          #+#    #+#              #
-#    Updated: 2021/06/26 22:27:33 by rmartins         ###   ########.fr        #
+#    Updated: 2021/06/27 15:41:00 by rmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ norm:
 	@norminette $(addprefix inc/,$(HEADER)) \
 		$(addprefix src/,$(SRC))
 
-TEST_PARAMETERS = 2 200 100 100 2
+TEST_PARAMETERS = 4 310 200 100
 
 run: all
 	@echo $(ANSI_B_RED) "Running for debbuger without sanitize" $(ANSI_RESET)

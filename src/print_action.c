@@ -6,11 +6,20 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:44:43 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 00:15:16 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/27 17:44:02 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	check_death4(t_philosopher *philo)
+{
+	if (get_elapsed_time_from_meal(philo) > philo->info->time_die)
+	{
+		print_philo_action(DEATH, philo, philo->index, ANSI_B_YELLOW);
+		philo->info->death = 1;
+	}
+}
 
 char	*get_philo_color_byindex(int philo_index)
 {
@@ -48,9 +57,14 @@ void	print_philo_action(char *action,
 	philo_color = get_philo_color_byindex(index);
 	time = get_time_stamp_action(philo) / 1000;
 	if (ft_strcmp(action, EAT) == 0)
+	{
 		philo->last_meal = philo->last_action;
+		//printf("[%lld]\n", get_elapsed_time_from_meal(philo));
+	}
+	//check_death4(philo);
 	if (philo->info->death != 1)
 	{
+		// printf("[%lld]\n", get_elapsed_time_from_meal(philo) / 1000);
 		printf("%dms\t %s%d" ANSI_RESET " %s%s" ANSI_RESET "\n",
 			time, philo_color, index + 1, color, action);
 	}
