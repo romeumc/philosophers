@@ -6,64 +6,118 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 22:12:40 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 14:17:37 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:07:27 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	take_forks(t_philosopher *philo, int left, int right)
+
+void	take_forks(t_philosopher *philo, int first, int second)
 {
-	while (philo->info->forks[left] != philo->index
-		&& philo->info->forks[right] != philo->index
-		&& philo->info->death != 1)
+	while (
+		!(philo->info->forks[first] == philo->index && philo->info->forks[second] == philo->index)
+		&& philo->info->death == 0)
 	{
-		pthread_mutex_lock(&philo->info->mutex[left]);
-		if (philo->info->forks[left] == -1)
+		pthread_mutex_lock(&philo->info->mutex[first]);
+		pthread_mutex_lock(&philo->info->mutex[second]);
+		
+		if (philo->info->forks[first] == -1)
 		{
-			philo->info->forks[left] = philo->index;
-			print_action(FORK, philo, philo->index, ANSI_F_WHITE);
-			while (philo->info->forks[right] != philo->index)
-			{
-				pthread_mutex_lock(&philo->info->mutex[right]);
-				if (philo->info->forks[right] == -1)
-				{
-					philo->info->forks[right] = philo->index;
-					print_action(FORK, philo, philo->index, ANSI_F_WHITE);
-				}
-				pthread_mutex_unlock(&philo->info->mutex[right]);
-				check_death(philo);
-			}
+			print_fork(WAIT_1stFORK, philo, philo->index, first);
+			philo->info->forks[first] = philo->index;
+			print_fork(FORK, philo, philo->index, first);
+			
 		}
-		pthread_mutex_unlock(&philo->info->mutex[left]);
+		//check_death(philo);
+		//usleep(1000);
+		
+		if (philo->info->forks[second] == -1)
+		{
+			print_fork(WAIT_2ndFORK, philo, philo->index, second);
+			philo->info->forks[second] = philo->index;
+			print_fork(FORK, philo, philo->index, second);
+		}
+		
+		pthread_mutex_unlock(&philo->info->mutex[first]);
+		pthread_mutex_unlock(&philo->info->mutex[second]);
+
+		// print_action(WAIT_FORK, philo, philo->index);
+		// usleep(1000);
+		
 		check_death(philo);
+		//usleep(1);
 	}
 }
+
+// void	take_forks(t_philosopher *philo, int first, int second)
+// {
+// 	while (philo->info->forks[first] != philo->index
+// 		&& philo->info->forks[second] != philo->index
+// 		&& philo->info->death != 1)
+// 	{
+// 		pthread_mutex_lock(&philo->info->mutex[first]);
+		
+// 		print_fork(WAIT_1stFORK, philo, philo->index, first);
+// 		if (philo->info->forks[first] == -1)
+// 		{
+// 			philo->info->forks[first] = philo->index;
+// 			print_fork(FORK, philo, philo->index, first);
+// 			while (philo->info->forks[second] != philo->index)
+// 			{
+// 				pthread_mutex_lock(&philo->info->mutex[second]);
+// 				print_fork(WAIT_2ndFORK, philo, philo->index, second);
+// 				if (philo->info->forks[second] == -1)
+// 				{
+// 					philo->info->forks[second] = philo->index;
+// 					print_fork(FORK, philo, philo->index, second);
+// 				}
+// 				pthread_mutex_unlock(&philo->info->mutex[second]);
+// 				check_death(philo);
+// 				usleep(1000);
+// 			}
+// 		}
+// 		usleep(1000);
+// 		pthread_mutex_unlock(&philo->info->mutex[first]);
+
+// 		// print_action(WAIT_FORK, philo, philo->index);
+// 		// usleep(1000);
+		
+		
+		
+// 		check_death(philo);
+// 		//usleep(1);
+// 	}
+// }
 
 void	philo_eat(t_philosopher *philo, int index)
 {
 	philo->times_eaten++;
-	print_action(EAT, philo, index, ANSI_F_GREEN);
+	print_action(EAT, philo, index);
 	wait_time(philo, philo->info->time_eat);
 }
 
-void	leave_forks(t_philosopher *philo, int left, int right)
+void	leave_forks(t_philosopher *philo, int first, int second)
 {
-	pthread_mutex_lock(&philo->info->mutex[left]);
-	philo->info->forks[left] = -1;
-	pthread_mutex_unlock(&philo->info->mutex[left]);
-	pthread_mutex_lock(&philo->info->mutex[right]);
-	philo->info->forks[right] = -1;
-	pthread_mutex_unlock(&philo->info->mutex[right]);
+	write(1, "+", 1);
+	//pthread_mutex_lock(&philo->info->mutex[first]);
+	//pthread_mutex_lock(&philo->info->mutex[second]);
+	philo->info->forks[first] = -1;
+	print_fork(LEAVE, philo, philo->index, first);
+	philo->info->forks[second] = -1;
+	print_fork(LEAVE, philo, philo->index, second);
+	//pthread_mutex_unlock(&philo->info->mutex[first]);
+	//pthread_mutex_unlock(&philo->info->mutex[second]);
+	//usleep(1);
 }
 
 void	philo_sleep(t_philosopher *philo, int index)
 {
-	print_action(SLEEP, philo, index, ANSI_F_WHITE);
+	print_action(SLEEP, philo, index);
 	wait_time(philo, philo->info->time_sleep);
 }
 
 void	philo_think(t_philosopher *philo, int index)
 {
-	print_action(THINK, philo, index, ANSI_F_WHITE);
+	print_action(THINK, philo, index);
 }

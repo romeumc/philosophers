@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 15:18:39 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 14:15:47 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:32:15 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	check_death(t_philosopher *philo)
 {
-	if (get_elapsed_time_from_meal(philo) > philo->info->time_die + 10000)
+	//write(1, ".", 1);
+	if (get_elapsed_time_from_meal(philo) > philo->info->time_die)
 	{
 		pthread_mutex_lock(&philo->info->mutex[philo->info->num_philos + 1]);
-		print_action(DEATH, philo, philo->index, ANSI_B_RED);
+		print_action(DEATH, philo, philo->index);
 		philo->info->death = 1;
 		pthread_mutex_unlock(&philo->info->mutex[philo->info->num_philos + 1]);
 	}
@@ -30,7 +31,8 @@ void	wait_time(t_philosopher *philo, int time_towait)
 		check_death(philo);
 		if (philo->info->death == 1)
 			break ;
-		usleep(10);
+		//write(1, ".", 1);
+		//usleep(1);
 	}
 }
 
@@ -46,9 +48,9 @@ void	*routine(void *arg)
 	while (philo->info->death == 0)
 	{
 		if (philo->index % 2 == 0)
-			take_forks(philo, left, right);
-		else
 			take_forks(philo, right, left);
+		else
+			take_forks(philo, left, right);
 		philo_eat(philo, philo->index);
 		leave_forks(philo, left, right);
 		if (philo->times_eaten >= philo->info->times_to_eat

@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:31:41 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 13:20:32 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:39:22 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ typedef struct s_philosopher
 	int				times_eaten;
 }	t_philosopher;
 
-# define FORK "has taken a fork"
-# define EAT "is eating"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define DEATH "died"
+# define FORK	"has taken a fork"
+# define EAT	"\033[32mis eating\033[0m"
+# define SLEEP	"is sleeping"
+# define THINK	"is thinking"
+# define DEATH	"\033[41mdied\033[0m"
+# define LEAVE	"\033[44mleave forks\033[0m"
+# define WAIT_2ndFORK "\033[45m WAIT 2nd \033[0m"
+# define WAIT_1stFORK "\033[42;1m WAIT 1st \033[0m"
 
 void	print_error(char *header, char *error);
 void	print_message(char *header, char *message);
@@ -65,7 +68,8 @@ int		create_single_philosopher(t_philo_args *philo_args);
 int		destroy_philosophers(t_philo_args *philo_args);
 int		destroy_mutexes(t_philo_args *philo_args);
 void	*routine(void *arg);
-void	print_action(char *act, t_philosopher *philo, int index, char *color);
+void	print_action(char *action, t_philosopher *philo, int index);
+void	print_fork(char *action, t_philosopher *philo, int index, int fork);
 void	wait_time(t_philosopher *philo, int time_towait);
 void	check_death(t_philosopher *philo);
 

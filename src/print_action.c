@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:44:43 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 14:05:53 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:15:12 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ char	*get_philo_color_byindex(int philo_index)
 	return (color);
 }
 
-void	print_action(char *action,
-	t_philosopher *philo, int index, char *color)
+void	print_action(char *action, t_philosopher *philo, int index)
 {
 	int		time;
 	char	*philo_color;
@@ -55,8 +54,26 @@ void	print_action(char *action,
 	{
 		if (ft_strcmp(action, DEATH) == 0)
 			philo->info->death = 1;
-		printf("%dms\t %s%d" ANSI_RESET " %s%s" ANSI_RESET "\n",
-			time, philo_color, index + 1, color, action);
+		printf("%dms\t %s%d" ANSI_RESET " %s\n",
+			time, philo_color, index + 1, action);
+	}
+	free(philo_color);
+	usleep(1);
+	pthread_mutex_unlock(&philo->info->mutex[philo->info->num_philos + 1]);
+}
+
+void	print_fork(char *action, t_philosopher *philo, int index, int fork)
+{
+	int		time;
+	char	*philo_color;
+
+	pthread_mutex_lock(&philo->info->mutex[philo->info->num_philos + 1]);
+	philo_color = get_philo_color_byindex(index);
+	time = get_time_stamp_action(philo) / 1000;
+	if (philo->info->death != 1)
+	{
+		printf("%dms\t %s%d" ANSI_RESET " %s [%d]\n",
+			time, philo_color, index + 1, action, fork + 1);
 	}
 	free(philo_color);
 	usleep(1);
