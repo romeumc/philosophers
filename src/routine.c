@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 15:18:39 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 22:53:56 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 14:15:47 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	check_death(t_philosopher *philo)
 {
 	if (get_elapsed_time_from_meal(philo) > philo->info->time_die + 10000)
 	{
+		pthread_mutex_lock(&philo->info->mutex[philo->info->num_philos + 1]);
 		print_action(DEATH, philo, philo->index, ANSI_B_RED);
 		philo->info->death = 1;
+		pthread_mutex_unlock(&philo->info->mutex[philo->info->num_philos + 1]);
 	}
 }
 
@@ -28,7 +30,7 @@ void	wait_time(t_philosopher *philo, int time_towait)
 		check_death(philo);
 		if (philo->info->death == 1)
 			break ;
-		usleep(1);
+		usleep(10);
 	}
 }
 
@@ -43,7 +45,6 @@ void	*routine(void *arg)
 	right = (philo->index + 1) % philo->info->num_philos;
 	while (philo->info->death == 0)
 	{
-		philo_think(philo, philo->index);
 		if (philo->index % 2 == 0)
 			take_forks(philo, left, right);
 		else
@@ -54,6 +55,7 @@ void	*routine(void *arg)
 			&& philo->info->times_to_eat > 0)
 			break ;
 		philo_sleep(philo, philo->index);
+		philo_think(philo, philo->index);
 	}
 	free(philo);
 	return (0);

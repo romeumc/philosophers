@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:44:43 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 21:49:36 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 14:05:53 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,19 @@ void	print_action(char *action,
 	int		time;
 	char	*philo_color;
 
+	pthread_mutex_lock(&philo->info->mutex[philo->info->num_philos + 1]);
 	philo_color = get_philo_color_byindex(index);
 	time = get_time_stamp_action(philo) / 1000;
 	if (ft_strcmp(action, EAT) == 0)
-	{
 		philo->last_meal = philo->last_action;
-	}
 	if (philo->info->death != 1)
 	{
+		if (ft_strcmp(action, DEATH) == 0)
+			philo->info->death = 1;
 		printf("%dms\t %s%d" ANSI_RESET " %s%s" ANSI_RESET "\n",
 			time, philo_color, index + 1, color, action);
 	}
 	free(philo_color);
+	usleep(1);
+	pthread_mutex_unlock(&philo->info->mutex[philo->info->num_philos + 1]);
 }

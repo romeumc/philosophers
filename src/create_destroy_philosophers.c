@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:46:08 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/27 17:43:42 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/28 14:18:54 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ int	create_mutexes(t_philo_args *philo_arg)
 {
 	int	i;
 
-	philo_arg->mutex = malloc(sizeof(pthread_mutex_t) * philo_arg->num_philos);
+	philo_arg->mutex = malloc(sizeof(pthread_mutex_t)
+			* (philo_arg->num_philos + 1));
 	if (philo_arg->mutex == NULL)
 	{
 		print_error("ERROR: ", "Cannot allocate mutex");
 		return (EXIT_FAILURE);
 	}
 	i = 0;
-	while (i < philo_arg->num_philos)
+	while (i < (philo_arg->num_philos + 1))
 	{
 		if (pthread_mutex_init(&philo_arg->mutex[i], NULL) != 0)
 		{
@@ -52,7 +53,7 @@ int	destroy_mutexes(t_philo_args *philo_args)
 	int	i;
 
 	i = 0;
-	while (i < philo_args->num_philos)
+	while (i < (philo_args->num_philos + 1))
 	{
 		if (pthread_mutex_destroy(&philo_args->mutex[i]) != 0)
 		{
