@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 15:18:39 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 18:32:15 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/29 10:45:55 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	check_death(t_philosopher *philo)
 {
-	//write(1, ".", 1);
 	if (get_elapsed_time_from_meal(philo) > philo->info->time_die)
 	{
 		pthread_mutex_lock(&philo->info->mutex[philo->info->num_philos + 1]);
@@ -31,8 +30,6 @@ void	wait_time(t_philosopher *philo, int time_towait)
 		check_death(philo);
 		if (philo->info->death == 1)
 			break ;
-		//write(1, ".", 1);
-		//usleep(1);
 	}
 }
 
@@ -47,6 +44,7 @@ void	*routine(void *arg)
 	right = (philo->index + 1) % philo->info->num_philos;
 	while (philo->info->death == 0)
 	{
+		philo_think(philo, philo->index);
 		if (philo->index % 2 == 0)
 			take_forks(philo, right, left);
 		else
@@ -57,7 +55,6 @@ void	*routine(void *arg)
 			&& philo->info->times_to_eat > 0)
 			break ;
 		philo_sleep(philo, philo->index);
-		philo_think(philo, philo->index);
 	}
 	free(philo);
 	return (0);

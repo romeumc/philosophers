@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:31:41 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 16:39:22 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/29 10:28:22 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,32 @@ typedef struct s_philosopher
 # define THINK	"is thinking"
 # define DEATH	"\033[41mdied\033[0m"
 # define LEAVE	"\033[44mleave forks\033[0m"
-# define WAIT_2ndFORK "\033[45m WAIT 2nd \033[0m"
-# define WAIT_1stFORK "\033[42;1m WAIT 1st \033[0m"
+# define WAIT_2ND_FORK "\033[45m WAIT 2nd \033[0m"
+# define WAIT_1ST_FORK "\033[42;1m WAIT 1st \033[0m"
 
-void	print_error(char *header, char *error);
-void	print_message(char *header, char *message);
-int		validate_args(int argc, char **argv);
-void	load_args_info(int argc, char **argv, t_philo_args *philo_info);
-int		init_extra_info(t_philo_args *philo_info);
+void		print_error(char *header, char *error);
+void		print_message(char *header, char *message);
+int			validate_args(int argc, char **argv);
+void		load_args_info(int argc, char **argv, t_philo_args *philo_info);
+int			init_extra_info(t_philo_args *philo_info);
 
-int		create_mutexes(t_philo_args *info);
-int		malloc_threads(t_philo_args *philo_args);
-int		create_philosophers(t_philo_args *philo_args);
-int		create_single_philosopher(t_philo_args *philo_args);
-int		destroy_philosophers(t_philo_args *philo_args);
-int		destroy_mutexes(t_philo_args *philo_args);
-void	*routine(void *arg);
-void	print_action(char *action, t_philosopher *philo, int index);
-void	print_fork(char *action, t_philosopher *philo, int index, int fork);
-void	wait_time(t_philosopher *philo, int time_towait);
-void	check_death(t_philosopher *philo);
+int			create_mutexes(t_philo_args *info);
+int			malloc_threads(t_philo_args *philo_args);
+int			create_philosophers(t_philo_args *philo_args);
+int			create_single_philosopher(t_philo_args *philo_args);
+int			destroy_philosophers(t_philo_args *philo_args);
+int			destroy_mutexes(t_philo_args *philo_args);
+void		*routine(void *arg);
+void		print_action(char *action, t_philosopher *philo, int index);
+void		print_fork(char *action, t_philosopher *philo, int index, int fork);
+void		wait_time(t_philosopher *philo, int time_towait);
+void		check_death(t_philosopher *philo);
 
-void	take_forks(t_philosopher *philo, int left, int right);
-void	philo_eat(t_philosopher *philo, int index);
-void	leave_forks(t_philosopher *philo, int left, int right);
-void	philo_sleep(t_philosopher *philo, int index);
-void	philo_think(t_philosopher *philo, int index);
+void		take_forks(t_philosopher *philo, int left, int right);
+void		philo_eat(t_philosopher *philo, int index);
+void		leave_forks(t_philosopher *philo, int left, int right);
+void		philo_sleep(t_philosopher *philo, int index);
+void		philo_think(t_philosopher *philo, int index);
 
 long long	get_time_stamp_action(t_philosopher *philo);
 long long	get_elapsed_time(t_philosopher *philo);
