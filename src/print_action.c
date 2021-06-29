@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:44:43 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 16:15:12 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/29 10:55:29 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	print_action(char *action, t_philosopher *philo, int index)
 			time, philo_color, index + 1, action);
 	}
 	free(philo_color);
-	usleep(1);
 	pthread_mutex_unlock(&philo->info->mutex[philo->info->num_philos + 1]);
 }
 
@@ -76,6 +75,5 @@ void	print_fork(char *action, t_philosopher *philo, int index, int fork)
 			time, philo_color, index + 1, action, fork + 1);
 	}
 	free(philo_color);
-	usleep(1);
 	pthread_mutex_unlock(&philo->info->mutex[philo->info->num_philos + 1]);
 }

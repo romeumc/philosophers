@@ -6,7 +6,7 @@
 /*   By: rmartins <rmartins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 22:30:42 by rmartins          #+#    #+#             */
-/*   Updated: 2021/06/28 14:21:18 by rmartins         ###   ########.fr       */
+/*   Updated: 2021/06/29 11:34:51 by rmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int argc, char **argv)
 	gettimeofday(&philo_args.start_time, NULL);
 	if (philo_args.num_philos == 1)
 		create_single_philosopher(&philo_args);
-	else if (create_philosophers(&philo_args))
-		return (EXIT_FAILURE);
+	else
+		create_philosophers(&philo_args);
 	if (destroy_philosophers(&philo_args) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (destroy_mutexes(&philo_args) == EXIT_FAILURE)
